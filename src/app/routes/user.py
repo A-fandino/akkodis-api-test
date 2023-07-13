@@ -28,7 +28,7 @@ def create_user():
     return to_dict(users)
 
 
-@user_bp.route("/<int:id_>/", methods=["PUT"])
+@user_bp.route("/<int:id_>/", methods=["PATCH"])
 def update_user(id_: int):
     user_data = request.get_json()
     user = UserController.update(id_, **user_data)
