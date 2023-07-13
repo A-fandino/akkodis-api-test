@@ -17,5 +17,5 @@ def udp_server():
     server.bind(UDP_SERVER_ADDRESS)
 
     while True:
-        data, address = server.recvfrom(1024)
+        data, _ = server.recvfrom(1024)
         logger.info(f"User: {data.decode('utf-8')}")
