@@ -33,6 +33,11 @@ DB_PASSWORD=<database password>
 ```
 There is a .env.example file with sample data.
 
+- Run the migrations
+```shell
+$ alembic upgrade head
+```
+
 - Run the application
 ```shell
 $ python main.py
