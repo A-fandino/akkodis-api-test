@@ -2,6 +2,8 @@ from flask import Blueprint, request
 from app.controller.user import UserController
 from app.utils.serialize import to_dict
 import json
+from app.udp.client import udp_client
+import threading
 
 user_bp = Blueprint("user", __name__)
 
@@ -16,7 +18,10 @@ def get_user(id_: int):
     user = UserController.get(id_)
     if not user:
         return json.dumps({"error": "User not found"}), 404
-    return to_dict(user)
+    user_dict = to_dict(user)
+    client_thread = threading.Thread(target=udp_client, args=(user_dict,))
+    client_thread.start()
+    return user_dict
 
 
 @user_bp.route("/", methods=["POST"])

@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, request
 from app.routes.user import user_bp
 from app.routes.car import car_bp
 import logging
+from app.udp.server import udp_server
 import threading
 
 logger = logging.getLogger(__name__)
@@ -43,4 +44,7 @@ def log_request_info():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    server_thread = threading.Thread(target=udp_server)
+    server_thread.start()
+
+    app.run()
