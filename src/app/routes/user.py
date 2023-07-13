@@ -9,7 +9,7 @@ user_bp = Blueprint("user", __name__)
 
 
 @user_bp.route("/", methods=["GET"])
-def get_all_user():
+def get_all_users():
     return to_dict(UserController.all())
 
 

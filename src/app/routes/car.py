@@ -7,7 +7,7 @@ car_bp = Blueprint("car", __name__)
 
 
 @car_bp.route("/", methods=["GET"])
-def get_all_car():
+def get_all_cars():
     return to_dict(CarController.all())
 
 
