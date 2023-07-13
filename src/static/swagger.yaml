@@ -1,0 +1,303 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Cars Api
+  description: An API to manage Cars
+
+paths:
+  /api/user/:
+    get:
+      description: Get all users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+    post:
+      description: Create a new or many users
+      requestBody:
+        description: User to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/user'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+  /api/user/{id}:
+    get:
+      description: Get a user by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '404':
+          description: Not found
+    put:
+      description: Update a user by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: integer
+      requestBody:
+        description: User to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '404':
+          description: Not found
+    delete:
+      description: Delete a user by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '404':
+          description: Not found
+  /api/user/{id}/cars:
+    get:
+      description: Get all cars from a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/car'
+    post:
+      description: Assign many cars for a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: integer
+      requestBody:
+        description: Cars to assign
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                car_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/car'
+  /api/user/{id}/cars/{car_id}:
+    delete:
+      description: Delete a car from a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: integer
+        - name: car_id
+          in: path
+          required: true
+          description: Car id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/car'
+        '404':
+          description: Not found
+  /api/car/:
+    get:
+      description: Get all cars
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/car'
+    post:
+      description: Create a new or many cars
+      requestBody:
+        description: Car to create
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/car'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/car'
+  /api/car/{id}:
+    get:
+      description: Get a car by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Car id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/car'
+        '404':
+          description: Not found
+    put:
+      description: Update a car by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Car id
+          schema:
+            type: integer
+      requestBody:
+        description: Car to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/car'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/car'
+        '404':
+          description: Not found
+    delete:
+      description: Delete a car by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Car id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/car'
+        '404':
+          description: Not found
+components:
+  schemas:
+    user:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: arnau@arnau.com
+        cars: 
+          type: array
+          items:
+            $ref: '#/components/schemas/car'
+    car:
+      type: object
+      required:
+        - name
+        - brand
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          example: Leon
+        brand:
+          type: string
+          example: Seat

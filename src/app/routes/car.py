@@ -25,7 +25,7 @@ def create_car():
     if not isinstance(cars, list):
         cars = [cars]
     cars = CarController.create(cars)
-    return to_dict(cars)
+    return to_dict(cars), 201
 
 
 @car_bp.route("/<int:id_>/", methods=["PATCH"])

@@ -30,7 +30,7 @@ def create_user():
     if not isinstance(users, list):
         users = [users]
     users = UserController.create(users)
-    return to_dict(users)
+    return to_dict(users), 201
 
 
 @user_bp.route("/<int:id_>/", methods=["PATCH"])

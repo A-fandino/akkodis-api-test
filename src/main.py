@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request
+from flask import Flask, Blueprint, request, render_template
 from app.routes.user import user_bp
 from app.routes.car import car_bp
 import logging
@@ -24,6 +24,11 @@ api_bp.register_blueprint(car_bp, url_prefix="/car")
 ###################
 
 app.register_blueprint(api_bp)
+
+
+@app.route("/ui/")
+def ui():
+    return render_template("swaggerui.html")
 
 
 @app.before_request
