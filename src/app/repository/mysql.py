@@ -19,7 +19,7 @@ class MySqlRepository:
         with self.session as session:
             return session.query(Model).filter(*args, **kwargs).all()
 
-    def create(self, Model, instances: BaseModel | list[BaseModel]):
+    def create(self, instances: BaseModel | list[BaseModel]):
         if not isinstance(instances, list):
             instances = [instances]
         with self.session as session:

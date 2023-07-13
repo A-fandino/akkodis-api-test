@@ -24,7 +24,7 @@ class CarController:
     def create(data: dict | list[dict]):
         repo = MySqlRepository(db.SessionLocal())
         data = data if isinstance(data, list) else [data]
-        return repo.create(CarModel, [CarModel(**car) for car in data])
+        return repo.create([CarModel(**car) for car in data])
 
     @staticmethod
     def update(id_: int, **kwargs):
