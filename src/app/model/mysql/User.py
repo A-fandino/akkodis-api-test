@@ -13,6 +13,10 @@ class UserModel(BaseModel):
     name = sa.Column(sa.String(255), nullable=False)
     email = sa.Column(sa.String(255), nullable=False)
 
+    cars = sa.orm.relationship(
+        "CarModel", secondary="favourite_car", backref="users", lazy=False
+    )
+
 
 class FavouriteCarModel(BaseModel):
     __tablename__ = "favourite_car"
