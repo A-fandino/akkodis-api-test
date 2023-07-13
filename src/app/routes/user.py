@@ -43,3 +43,22 @@ def delete_user(id_: int):
     if not user:
         return json.dumps({"error": "User not found"}), 404
     return to_dict(user)
+
+
+@user_bp.route("/<int:id_>/cars/", methods=["GET"])
+def get_cars(id_: int):
+    return to_dict(UserController.get_cars(id_))
+
+
+@user_bp.route("/<int:id_>/cars/", methods=["POST"])
+def assign_car(id_: int):
+    body = request.get_json()
+    car_ids = body.get("car_ids")
+    UserController.assign_car(id_, car_ids)
+    return json.dumps({"success": "Cars assigned successfully"})
+
+
+@user_bp.route("/<int:id_>/cars/<int:car_id>", methods=["DELETE"])
+def unassign_car(id_: int, car_id: int):
+    UserController.unassign_car(id_, car_id)
+    return json.dumps({"success": "Cars unassigned successfully"})
